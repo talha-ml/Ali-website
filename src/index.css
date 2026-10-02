@@ -1,0 +1,430 @@
+/* ================================================================
+   Dr. Ahmad Ali — Physician & Researcher Portfolio
+   Design System & Global Styles
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ----------------------------------------------------------------
+   1. Design Tokens
+   ---------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --bg-primary: #FAFAF7;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #F5F5F1;
+  --bg-card: #FFFFFF;
+
+  --text-primary: #1A1A2E;
+  --text-secondary: #4A4A5A;
+  --text-muted: #71717A;
+  --text-light: #A1A1AA;
+
+  --accent-blue: #1E3A5F;
+  --accent-blue-light: #EDF2F7;
+  --accent-blue-hover: #2B4F7E;
+  --accent-gold: #996515;
+  --accent-gold-light: #FDF6E3;
+
+  --border-subtle: #E8E8E3;
+  --border-medium: #D4D4CF;
+
+  --status-published-bg: #ECFDF5;
+  --status-published-text: #047857;
+  --status-accepted-bg: #EDF2F7;
+  --status-accepted-text: #1E3A5F;
+  --status-featured-bg: #FDF6E3;
+  --status-featured-text: #996515;
+  --status-submitted-bg: #F4F4F0;
+  --status-submitted-text: #4A4A5A;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Spacing Scale (8px base) */
+  --space-1: 0.25rem;   /* 4px  */
+  --space-2: 0.5rem;    /* 8px  */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-8: 3rem;      /* 48px */
+  --space-10: 4rem;     /* 64px */
+  --space-12: 5rem;     /* 80px */
+  --space-16: 7rem;     /* 112px */
+
+  /* Elevation */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+
+  /* Borders & Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------------------------------
+   2. Reset & Base
+   ---------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ----------------------------------------------------------------
+   3. Typography
+   ---------------------------------------------------------------- */
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h1 { font-size: clamp(2.2rem, 4.5vw, 3.25rem); letter-spacing: -0.025em; }
+h2 { font-size: clamp(1.85rem, 3.5vw, 2.5rem); letter-spacing: -0.02em; }
+h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+h4 { font-size: 1.05rem; }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover { color: var(--accent-blue-hover); }
+
+/* ----------------------------------------------------------------
+   4. Focus & Accessibility
+   ---------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* ----------------------------------------------------------------
+   5. Layout
+   ---------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+@media (min-width: 1440px) {
+  .container { max-width: 1280px; }
+}
+
+section {
+  padding: var(--space-16) 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  section { padding: var(--space-10) 0; }
+}
+
+/* ----------------------------------------------------------------
+   6. Section Headings
+   ---------------------------------------------------------------- */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: var(--space-3);
+}
+
+.section-title {
+  font-size: clamp(1.85rem, 3.5vw, 2.5rem);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-8);
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------------
+   7. Buttons
+   ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: 1px solid transparent;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-blue-hover);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+  color: #FFFFFF;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-surface);
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------------
+   8. Cards
+   ---------------------------------------------------------------- */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+/* ----------------------------------------------------------------
+   9. Badges
+   ---------------------------------------------------------------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.badge-published {
+  background-color: var(--status-published-bg);
+  color: var(--status-published-text);
+}
+
+.badge-accepted {
+  background-color: var(--status-accepted-bg);
+  color: var(--status-accepted-text);
+}
+
+.badge-featured {
+  background-color: var(--status-featured-bg);
+  color: var(--status-featured-text);
+  border: 1px solid rgba(153, 101, 21, 0.15);
+}
+
+.badge-submitted {
+  background-color: var(--status-submitted-bg);
+  color: var(--status-submitted-text);
+}
+
+.badge-poster {
+  background-color: #F3E8FF;
+  color: #6B21A8;
+}
+
+/* ----------------------------------------------------------------
+   10. Modal
+   ---------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(26, 26, 46, 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+}
+
+.modal-content {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--space-8);
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  animation: modalEnter 0.2s ease-out;
+}
+
+@keyframes modalEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------
+   11. Scroll Indicator
+   ---------------------------------------------------------------- */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-family: var(--font-sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  animation: gentleBounce 2.5s ease-in-out infinite;
+}
+
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50%      { transform: translateY(-6px) translateX(-50%); }
+}
+
+/* ----------------------------------------------------------------
+   12. Scroll Reveal Animation
+   ---------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------------
+   13. Form Elements
+   ---------------------------------------------------------------- */
+input, textarea, select {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.08);
+  outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-light);
+}
+
+/* ----------------------------------------------------------------
+   14. Selection
+   ---------------------------------------------------------------- */
+::selection {
+  background-color: rgba(30, 58, 95, 0.12);
+  color: var(--text-primary);
+}
+
+/* ----------------------------------------------------------------
+   15. Responsive Utilities
+   ---------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .container { padding: 0 var(--space-4); }
+}
