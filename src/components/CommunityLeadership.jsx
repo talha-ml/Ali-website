@@ -4,20 +4,20 @@ import { COMMUNITY_LEADERSHIP } from '../data/portfolioData';
 
 export default function CommunityLeadership() {
   return (
-    <section id="community" aria-label="Community Service and Leadership">
+    <section id="community" tabIndex={-1} aria-label="Community Service and Leadership">
       <div className="container">
         <div style={{ maxWidth: '720px', marginBottom: 'var(--space-8)' }}>
           <p className="section-eyebrow"><Users size={14} /> Community & Leadership</p>
           <h2 className="section-title">Service Beyond the Clinic</h2>
           <p className="section-subtitle">
-            Free medical camps, flood relief operations, nationwide student health advocacy, and infection control training — over 6 years of sustained community engagement.
+            Free medical camps, flood relief operations, nationwide student health advocacy, and infection control workshops — over 6 years of sustained community engagement.
           </p>
         </div>
 
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))',
             gap: 'var(--space-5)',
           }}
         >
@@ -44,8 +44,11 @@ export default function CommunityLeadership() {
                   {item.role}
                 </p>
 
+                <p className="service-preview">{item.highlights[0]}</p>
+                <details className="service-details">
+                  <summary>More contributions<span className="sr-only"> at {item.organization}</span></summary>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: item.quote ? 'var(--space-4)' : 0 }}>
-                  {item.highlights.map((point, idx) => (
+                  {item.highlights.slice(1).map((point, idx) => (
                     <li key={idx} style={{
                       fontSize: '0.85rem',
                       lineHeight: 1.65,
@@ -59,6 +62,7 @@ export default function CommunityLeadership() {
                     </li>
                   ))}
                 </ul>
+                </details>
               </div>
 
               {item.quote && (

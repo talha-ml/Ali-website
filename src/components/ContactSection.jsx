@@ -1,147 +1,85 @@
-import React, { useState } from 'react';
-import { Mail, Send, MapPin, CheckCircle2, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, ArrowUpRight, Copy } from 'lucide-react';
+import { PUBLIC_CONTACT_EMAIL } from '../data/portfolioData';
+import { buildContactDraft, buildMailto, isContactEmail } from '../utils/contact';
+
+const configuredEmail = import.meta.env.VITE_CONTACT_EMAIL?.trim() || PUBLIC_CONTACT_EMAIL;
+const contactEmail = isContactEmail(configuredEmail) ? configuredEmail : '';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState('');
+  const [manualDraft, setManualDraft] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.name && formData.email && formData.message) {
-      setSubmitted(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+  const copyDraft = async (draft = buildContactDraft(formData)) => {
+    try {
+      await navigator.clipboard.writeText(draft);
+      setStatus(contactEmail ? `Draft copied. Nothing has been sent. Paste it into your email app and send it to ${contactEmail}.` : 'Draft copied. Nothing has been sent. Add Ahmad Ali’s confirmed professional email address before sending.');
+      setManualDraft('');
+    } catch {
+      setManualDraft(draft);
+      setStatus('Automatic copying is unavailable. Select and copy the draft below. Nothing has been sent.');
     }
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (contactEmail) {
+      window.location.href = buildMailto(contactEmail, formData);
+      setStatus('Your email app was requested. Review and send the draft there. This website has not sent a message. If no app opens, copy your draft below.');
+    } else {
+      await copyDraft();
+    }
+  };
+  const updateField = (id, value) => {
+    setFormData({ ...formData, [id]: value });
+    setStatus('');
+    setManualDraft('');
   };
 
   return (
-    <section id="contact" aria-label="Contact">
+    <section id="contact" tabIndex={-1} aria-labelledby="contact-title">
       <div className="container">
-        <div style={{ maxWidth: '720px', margin: '0 auto var(--space-8) auto', textAlign: 'center' }}>
-          <p className="section-eyebrow" style={{ justifyContent: 'center' }}><Mail size={14} /> Professional Inquiries</p>
-          <h2 className="section-title" style={{ textAlign: 'center' }}>Get in Touch</h2>
-          <p className="section-subtitle" style={{ margin: '0 auto' }}>
-            Open to residency program inquiries, research collaborations, and professional discussions.
-          </p>
+        <div className="section-heading">
+          <p className="section-eyebrow"><Mail size={14} aria-hidden="true" /> Professional Inquiries</p>
+          <h2 id="contact-title" className="section-title">A conversation starts here.</h2>
+          <p className="section-subtitle">Open to residency program inquiries, research collaborations, and professional discussions.</p>
         </div>
-
-        <div
-          style={{
-            maxWidth: '860px',
-            margin: '0 auto',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: 'var(--space-6)',
-            alignItems: 'start',
-          }}
-        >
-          {/* Info Card */}
-          <div className="card" style={{ padding: 'var(--space-6)' }}>
-            <h3 style={{ fontSize: '1.3rem', marginBottom: 'var(--space-4)' }}>
-              Professional Background
-            </h3>
-            <p style={{ fontSize: '0.9rem', lineHeight: 1.65, marginBottom: 'var(--space-5)' }}>
-              Ahmad Ali is actively applying to U.S. Internal Medicine Residency programs. For program inquiries or research collaboration, please use the contact form.
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.875rem' }}>
-                <div style={{ backgroundColor: 'var(--accent-blue-light)', padding: '0.45rem', borderRadius: 'var(--radius-sm)', color: 'var(--accent-blue)', lineHeight: 0 }}>
-                  <MapPin size={16} />
-                </div>
-                <div>
-                  <strong>Home Base:</strong>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.825rem' }}>SIMS Lahore & Muzaffargarh, Pakistan</div>
-                </div>
+        <div className="contact-layout">
+          <div className="contact-intro">
+            <h3>Get in touch</h3>
+            <p>Ahmad Ali is applying to U.S. Internal Medicine Residency programs, with clinical experience in Pakistan and U.S. hospitalist observerships.</p>
+            <dl className="contact-facts">
+              <div><dt>Based in</dt><dd>Lahore & Muzaffargarh, Pakistan</dd></div>
+              <div><dt>For</dt><dd>Residency inquiries · Research collaboration · Professional discussion</dd></div>
+            </dl>
+            {contactEmail && <a className="contact-email" href={`mailto:${contactEmail}`}>{contactEmail} <ArrowUpRight size={16} aria-hidden="true" /></a>}
+            <p id="contact-help" className="contact-note">{contactEmail
+              ? 'This form prepares a draft in your email app. You review and send it yourself.'
+              : 'A public contact email is not available yet. You can prepare and copy a draft; this website cannot deliver it.'}</p>
+            <p className="contact-note">For professional inquiries only. Please do not include patient information or confidential records.</p>
+          </div>
+          <form onSubmit={handleSubmit} className="contact-form" aria-describedby="contact-help">
+            {[
+              { id: 'name', label: 'Your name', type: 'text', autoComplete: 'name', required: true },
+              { id: 'email', label: 'Your email', type: 'email', autoComplete: 'email', required: true },
+              { id: 'subject', label: 'Subject', type: 'text' },
+            ].map(({ id, label, ...props }) => (
+              <div key={id}>
+                <label htmlFor={`contact-${id}`}>{label}{props.required && <span aria-hidden="true"> *</span>}</label>
+                <input id={`contact-${id}`} name={id} {...props} maxLength={id === 'subject' ? 160 : 254} value={formData[id]} onChange={e => updateField(id, e.target.value)} />
               </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', fontSize: '0.875rem' }}>
-                <div style={{ backgroundColor: 'var(--accent-gold-light)', padding: '0.45rem', borderRadius: 'var(--radius-sm)', color: 'var(--accent-gold)', lineHeight: 0 }}>
-                  <MessageSquare size={16} />
-                </div>
-                <div>
-                  <strong>U.S. Experience:</strong>
-                  <div style={{ color: 'var(--text-muted)', fontSize: '0.825rem' }}>Lehigh Valley Hospital (PA) & Forrest General (MS)</div>
-                </div>
-              </div>
+            ))}
+            <div>
+              <label htmlFor="contact-message">Message <span aria-hidden="true">*</span></label>
+              <textarea id="contact-message" name="message" rows={5} required maxLength={2000} placeholder="Tell me about your inquiry…" value={formData.message} onChange={e => updateField('message', e.target.value)} />
             </div>
-          </div>
-
-          {/* Form Card */}
-          <div className="card" style={{ padding: 'var(--space-6)' }}>
-            {submitted ? (
-              <div style={{ textAlign: 'center', padding: 'var(--space-6) var(--space-4)' }}>
-                <CheckCircle2 size={40} color="var(--status-published-text)" style={{ marginBottom: '0.75rem' }} />
-                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.4rem' }}>Message Sent</h3>
-                <p style={{ fontSize: '0.9rem', marginBottom: 'var(--space-5)' }}>
-                  Thank you. Ahmad Ali will review your inquiry and respond promptly.
-                </p>
-                <button onClick={() => setSubmitted(false)} className="btn btn-secondary">
-                  Send Another Message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-                <div>
-                  <label htmlFor="contact-name" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                    Your Name <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="contact-name"
-                    type="text"
-                    required
-                    placeholder="Dr. Jane Doe"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="contact-email" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                    Email Address <span aria-hidden="true">*</span>
-                  </label>
-                  <input
-                    id="contact-email"
-                    type="email"
-                    required
-                    placeholder="jane.doe@institution.edu"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="contact-subject" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                    Subject
-                  </label>
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    placeholder="Residency Match / Research Inquiry"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="contact-message" style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>
-                    Message <span aria-hidden="true">*</span>
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    rows={4}
-                    required
-                    placeholder="Write your message here..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  />
-                </div>
-
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.25rem' }}>
-                  Send Message <Send size={14} />
-                </button>
-              </form>
-            )}
-          </div>
+            <div className="contact-actions">
+              <button type="submit" className="btn btn-primary">{contactEmail ? 'Open email draft' : 'Copy inquiry draft'} {contactEmail ? <ArrowUpRight size={16} /> : <Copy size={16} />}</button>
+              {contactEmail && <button type="button" className="btn btn-secondary" onClick={() => copyDraft()}>Copy draft</button>}
+            </div>
+            <p role="status" aria-live="polite" className="form-status">{status}</p>
+            {manualDraft && <div><label htmlFor="manual-draft">Draft to copy</label><textarea id="manual-draft" readOnly rows={7} value={manualDraft} onFocus={e => e.target.select()} /></div>}
+          </form>
         </div>
       </div>
     </section>

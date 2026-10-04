@@ -1,4 +1,5 @@
-// Factually accurate portfolio data extracted strictly from APP.pdf and CV.pdf
+// Cross-checked against APP.pdf, CV.pdf, Ahmad_Ali_CV.pdf and Ahmad_Ali_Research_CV.pdf on 2026-10-04.
+// Source documents stay outside this repository. Publication status still requires ongoing owner review.
 // Confidential IDs, private phone numbers, and street addresses are omitted for public safety.
 
 export const PERSONAL_INFO = {
@@ -10,10 +11,10 @@ export const PERSONAL_INFO = {
   location: "Lahore & Muzaffargarh, Pakistan | United States",
   pronouns: "He/Him/His",
   tagline: "Bridging evidence-based clinical medicine, multi-institutional meta-research, and compassionate care for underserved populations.",
-  summary: "Internal Medicine residency applicant with comprehensive clinical internship experience at a 1,200-bed teaching hospital, U.S. clinical observership training in Level 1 & Level 2 Trauma Centers, extensive multi-institutional systematic review and meta-analysis experience resulting in 18 scholarly works, and a proven dedication to rural community health and student leadership.",
-  impactfulQuote: "Growing up in a village of 400 people with no nearby hospital or school taught me the true cost of health inequity. Seeing my father skip his own insulin doses to afford my education instilled a lifelong commitment to resilience, humility, and serving every patient with unyielding empathy.",
+  summary: "Internal Medicine residency applicant with comprehensive clinical internship experience at a 1,200-bed teaching hospital, U.S. clinical observership training in Level 1 & Level 2 Trauma Centers, extensive multi-institutional research experience with 18 listed scholarly outputs, and a proven dedication to rural community health and student leadership.",
+  impactfulQuote: "I grew up in a village of 400 people with no nearby hospital or school.",
   heroStats: [
-    { label: "Scholarly Works", value: "18", description: "Meta-analyses, papers & abstracts" },
+    { label: "Scholarly Outputs", value: "18", description: "Manuscripts, abstracts & posters" },
     { label: "Clinical Rotations", value: "12 Mos", description: "Inpatient, Emergency, ICU & IM" },
     { label: "U.S. Observerships", value: "2", description: "Lehigh Valley & Forrest General" },
     { label: "Community Drives", value: "6+ Yrs", description: "Medical camps, relief & outreach" }
@@ -25,14 +26,14 @@ export const CLINICAL_EXPERIENCES = [
     id: "nisar-clinic",
     role: "Medical Officer",
     organization: "Nisar Clinic",
-    location: "Chak no 581 TDA, Pakistan (Hometown Village)",
+    location: "Muzaffargarh, Pakistan",
     dates: "07/2024 – Present",
     type: "Work / Clinical Practice",
     setting: "Rural / Resource-Limited",
     badge: "Rural Primary Care",
     keyCharacteristic: "Resilience & Adaptability",
     highlights: [
-      "Serving as a primary care physician in a resource-limited village setting, managing diverse acute and chronic patient presentations.",
+      "Providing primary care in a resource-limited rural community.",
       "Organized weekly free Sunday medical camps providing screening for Hepatitis B/C, diabetes, hypertension, and preventive health counseling.",
       "Conducted health awareness campaigns in local community gathering spaces to address healthcare taboos, particularly surrounding women's access to medical services.",
       "Coordinated local resources for comprehensive care and referral pathways for HIV and tuberculosis patients.",
@@ -53,9 +54,9 @@ export const CLINICAL_EXPERIENCES = [
       "Shadowed hospitalist attendings at an 877-bed Level 1 Trauma Center, observing 20–25 floor patients daily from early-morning Epic pre-rounds to physical rounds.",
       "Analyzed interprofessional workflows across Epic EMR, emphasizing prompt team communication and discharge planning with social workers and case managers.",
       "Participated in daily 10 AM multidisciplinary team huddles reviewing patient progress, care trajectories, and post-discharge follow-up needs.",
-      "Observed clinical case presentations, patient interviews under direct supervision, and patient de-escalation/empathy techniques.",
-      "Studied U.S. health insurance networks and reimbursement models with a focus on care delivery for vulnerable populations.",
-      "Most Meaningful Learning: Observed an attending physician kneel beside an agitated patient to soothe them, taking extra time to listen to their story before medical discussions—a practice of compassionate care Dr. Ali vows to emulate."
+      "Presented cases and interviewed patients under attending supervision; observed de-escalation and empathy techniques.",
+      "Learned about U.S. health insurance networks.",
+      "Most Meaningful Learning: Observing an attending kneel beside an agitated patient and spend extra time listening reinforced the importance of compassionate care."
     ]
   },
   {
@@ -87,12 +88,12 @@ export const CLINICAL_EXPERIENCES = [
     badge: "12-Month House Job",
     keyCharacteristic: "Reliability & Dependability",
     highlights: [
-      "Completed a comprehensive 12-month clinical internship at a premier 1,200-bed tertiary care teaching hospital.",
+      "Completed a 12-month clinical internship at a 1,200-bed teaching hospital.",
       "Completed 6 dedicated months in Internal Medicine (including Endocrinology & Metabolism), alongside rotations in General Surgery and Anesthesia.",
       "Rotated through inpatient wards, outpatient clinics, emergency department, and intensive care units (ICU).",
       "Conducted patient histories, detailed physical examinations, lab interpretation, and case presentations during daily attending rounds.",
       "Assisted with invasive clinical procedures: nasogastric (NG) tube placement, urinary catheterization, PICC line placement, endoscopies, and colonoscopies.",
-      "Counseled families of critically ill patients on treatment prognosis, end-of-life care, and clinical empathy.",
+      "Counseled families of critically ill patients with an emphasis on empathy and professionalism.",
       "Contributed to data collection for hospital clinical research projects."
     ]
   }
@@ -104,19 +105,19 @@ export const RESEARCH_EXPERIENCE = {
     organization: "Meta Analysis Academy",
     location: "Lahore, Pakistan (Virtual Collaborative)",
     dates: "12/2025 – 06/2026",
-    description: "Conducted multi-institutional systematic reviews and meta-analyses under expert research mentorship. Managed full project cycles: topic selection, building search strings (PubMed, Embase, Cochrane), title/abstract screening, Excel data extraction, and statistical analyses in R and RevMan Studio. Coordinated collaborative author teams and prepared manuscripts for high-impact peer-reviewed journals."
+    description: "Conducted multi-institutional systematic reviews and meta-analyses under expert research mentorship. Managed full project cycles: topic selection, building database search strings, title/abstract screening, Excel data extraction, and statistical analyses in R and RevMan Studio. Coordinated collaborative author teams and prepared manuscripts for peer-reviewed medical journals."
   },
   categories: [
     { id: "all", label: "All Scholarly Works" },
-    { id: "journal-article", label: "Peer-Reviewed Articles" },
+    { id: "journal-article", label: "Articles & Manuscripts" },
     { id: "journal-abstract", label: "Conference Abstracts" },
-    { id: "poster", label: "Poster Presentations" }
+    { id: "poster", label: "Posters" }
   ],
   publications: [
     {
       id: "pub-1",
       category: "journal-article",
-      type: "Journal Article (Peer-Reviewed)",
+      type: "Journal Manuscript",
       title: "CagriSema versus Semaglutide 2.4mg monotherapy for weight management in adults with overweight or obesity, with or without type 2 diabetes: a systematic review, meta-analysis, and trial sequential analysis",
       journal: "Frontiers in Endocrinology",
       authors: "Rasool ZK, Shah R, Batool AEZ, Shah R, Khachatryan M, Bhardwaj S, Ali AG, Atta M, Bakthavatchalam P, Khawar MMH, Khawar M",
@@ -128,7 +129,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "pub-2",
       category: "journal-article",
-      type: "Journal Article (Peer-Reviewed)",
+      type: "Journal Manuscript",
       title: "Cardiovascular Outcomes with Non Statin LDL Lowering Therapies: An Updated Meta Analysis of Randomized Controlled Trials Including VESALIUS-CVW",
       journal: "Circulation: Population Health and Outcomes",
       authors: "Hassan MM, Magsi N, Ali A, Rukh M, Batool A, Rasheed M, Hamzah A, Nadeem H, Aziz R, Hamza M, Siddique MU, Khalid M, Ashraf DA, Mentz RJ",
@@ -140,7 +141,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "pub-3",
       category: "journal-article",
-      type: "Journal Article (Peer-Reviewed)",
+      type: "Journal Manuscript",
       title: "Neoadjuvant chemotherapy versus upfront surgery in locally advanced colon cancer: a meta-analysis and trial sequential analysis of randomized trials",
       journal: "Science Progress Journal",
       authors: "Heo J, Daniyal AMB, Said A, Shahid R, Ali A, Kim G, Kim H, Khan R, Park J, Abid MH, Safi SU, Khawar M, Khawar MMH",
@@ -152,7 +153,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "pub-4",
       category: "journal-article",
-      type: "Journal Article (Peer-Reviewed)",
+      type: "Journal Manuscript",
       title: "Oral versus Intravenous Paclitaxel in Metastatic or Recurrent Breast Cancer: A Systematic Review and Meta-Analysis with GRADE Assessment",
       journal: "Frontiers in Medicine",
       authors: "Khawar M, Nyirahabimana D, Ali AG, Nemani RR, Lacej D, Adnan S, Tariq MU, Kolnikaj TS, Pradhan B, Tarko K, Bakthavatchalam P, Khawar MMH",
@@ -164,10 +165,10 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-1",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Catheter Ablation versus Medical Therapy for Atrial Fibrillation Across Heart Failure Phenotypes: A Reconstructed Individual-Patient-Data Meta-Analysis and Contemporary GDMT-Era Meta-Regression",
       journal: "AHA Scientific Sessions (Chicago, IL)",
-      authors: "Hassan MM, Magsi N, Nadeem H, MahRukh, Hassan T, Hamza M, Ahmad M, Ali A, Siddique MU, Khalid M, MuhayyuDin G, Fatima M, Ashraf DA, Mentz RJ",
+      authors: "Hassan MM, Magsi N, Nadeem H, MahRukh, Hassan T, Hamza M, Ahmad M, Ali A, Siddique MU, Khalid M, MuhayyuDin G, Fatime M, Ashraf DA, Mentz RJ",
       date: "November 2026 (Accepted Aug 2026)",
       status: "Accepted/In-Press",
       statusBadge: "success",
@@ -176,7 +177,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-2",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Safety and Hemodynamic Effects of Sotatercept in WHO Group 1 Pulmonary Arterial Hypertension and Group 2 CpcPH-HFpEF: A Systematic Review and Meta-Analysis of Randomized Controlled Trials",
       journal: "AHA Scientific Sessions (Chicago, IL)",
       authors: "Hassan MM, Magsi N, Rukh M, Aziz R, Hamza M, Batool A, Khalid M, Hasanat A, Siddique MU, Nadeem H, Ali A, Fatima M, Ashraf DA, Mentz RJ",
@@ -188,10 +189,10 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-3",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Comparative Efficacy and Safety of Early Adjunctive Antiplatelet Therapy Following Intravenous Thrombolysis in Acute Ischemic Stroke: A Network Meta-Analysis of Randomized Controlled Trials",
       journal: "AHA Scientific Sessions (Chicago, IL)",
-      authors: "Hassan MM, Magsi N, Siddique MU, Rukh M, Hassan T, Rasheed M, Zahid I, Aziz R, Hamza M, Khalid M, Ali A, Ashraf DA, Mentz RJ",
+      authors: "Hassan MM, Magsi N, Siddique MU, Rukh M, Hassan T, Rasheed M, Zahid I, Aziz R, Hamza M, Khalid M, Ali A, AshraOf DA, Mentz RJ",
       date: "November 2026 (Accepted Aug 2026)",
       status: "Accepted/In-Press",
       statusBadge: "success",
@@ -200,7 +201,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-4",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Cardiovascular Outcomes with Non Statin LDL Lowering Therapies: An Updated Meta Analysis of Randomized Controlled Trials Including VESALIUS-CVW",
       journal: "AHA Scientific Sessions (Chicago, IL)",
       authors: "Hassan MM, Magsi N, Ali A, MahRukh, Batool A, Rasheed M, Hamzah A, Nadeem H, Aziz R, Hamza M, Siddiquie MU, Khalid M, Ashraf DA, Mentz RJ",
@@ -212,7 +213,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-5",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Catheter Based Reperfusion versus Anticoagulation Alone in Intermediate Risk Pulmonary Embolism: A systematic Review and Meta Analysis of Five Randomized Controlled Trials in the HI-PEITHO Era",
       journal: "AHA Scientific Sessions (Chicago, IL)",
       authors: "Magsi N, Rukh M, Afaq M, Hassam MM, Ali A, Ahmad M, Zahra E, Sultana S, Naseem A, Hasanat A, Iqbal MT, Aslam M, Fatima M",
@@ -224,10 +225,10 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-6",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "MM-1599: Temporal Trends and Demographic Disparities in Mortality From Multiple Myeloma With Coexisting Heart Failure in the United States, 1999–2024",
       journal: "Clinical Lymphoma, Myeloma and Leukemia (Vol 26, Supp 1)",
-      authors: "Zafar F, Daim SUR, Ali A, Ahmed RU, MM-1599",
+      authors: "Zafar F, Daim SUR, Ali A, Ahmed RU",
       date: "August 2026",
       status: "Published",
       statusBadge: "published",
@@ -236,7 +237,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-7",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Neoadjuvant chemotherapy versus upfront surgery in locally advanced colon cancer: a meta-analysis and trial sequential analysis of randomized trials",
       journal: "ESMO Congress 2026 (Madrid, Spain)",
       authors: "Heo J, Daniyal AMB, Said A, Shahid R, Ali A, Kim G, Kim H, Khan R, Park J, Abid MH, Safi SU, Khawar M, Khawar MMH",
@@ -248,7 +249,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-8",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Safety And Efficacy Of Glucagon-like Peptide-1 Receptor Agonists in Liver Transplant Recipients: A Systematic Review And Meta-Analysis",
       journal: "ACG Annual Scientific Meeting 2026 (Nashville, TN)",
       authors: "Ijaz H, Chopra P, Ali A, Saeed A, Oktaei H, Tombazzi C",
@@ -260,7 +261,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-9",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Temporal Racial Disparities in Pancreatic Cancer Mortality Across Rural and Urban Populations in the United States, 1999 to 2020",
       journal: "ACG Annual Scientific Meeting 2026 (Nashville, TN)",
       authors: "Zafar F, Daim SUR, Fazal MI, Zain A, Ijaz H, Safdar MA, Ali A, Khalid M",
@@ -272,7 +273,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-10",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Temporal Trends and Demographic Disparities in Esophageal Cancer Mortality Among individuals With Tobacco Use Disorder in the United States: A Retrospective Analysis, 2005 to 2024",
       journal: "ACG Annual Scientific Meeting 2026 (Nashville, TN)",
       authors: "Zafar F, Fazal MI, Zain A, Ali A, Nawaz I",
@@ -284,7 +285,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-11",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Nephrotic Syndrome Outcomes in Teaching Hospitals: NIS 2017-2018",
       journal: "American Society of Nephrology (ASN Kidney Week 2026, Denver, CO)",
       authors: "Zafar MU, Ali A, Zaidi SHM",
@@ -296,7 +297,7 @@ export const RESEARCH_EXPERIENCE = {
     {
       id: "abs-12",
       category: "journal-abstract",
-      type: "Journal Abstract (Peer-Reviewed)",
+      type: "Conference Abstract",
       title: "Long-term trends and demographic disparities in renal cell carcinoma mortality in the United States, 1968–2023",
       journal: "Journal of Clinical Oncology (Vol 44, 16_suppl)",
       authors: "Zafar F, Nawaz I, Khalid M, Fazal MI, Manan MR, Ali A",
@@ -313,7 +314,7 @@ export const RESEARCH_EXPERIENCE = {
       journal: "AHA Scientific Sessions 2026 (Chicago, IL)",
       authors: "Hassan MM, Magsi N, Ali A, MahRukh, Batool A, Rasheed M, Hamzah A, Nadeem H, Aziz R, Hamza M, Siddiquie MU, Khalid M, Ashraf DA, Mentz RJ",
       date: "November 2026",
-      status: "Poster Presented",
+      status: "Presentation Pending",
       statusBadge: "poster",
       url: null
     },
@@ -325,7 +326,7 @@ export const RESEARCH_EXPERIENCE = {
       journal: "AHA Scientific Sessions 2026 (Chicago, IL)",
       authors: "Magsi N, Rukh M, Afaq M, Hassan MM, Ali A, Ahmad M, Zahra E, Sultana S, Naseem A, Hasanat A, Iqbal MT, Aslam M, Fatima M",
       date: "November 2026",
-      status: "Poster Presented",
+      status: "Presentation Pending",
       statusBadge: "poster",
       url: null
     }
@@ -336,7 +337,7 @@ export const COMMUNITY_LEADERSHIP = [
   {
     id: "together-we-can",
     organization: "Together We Can",
-    role: "Volunteer & Field Lead",
+    role: "Volunteer",
     dates: "07/2020 – 08/2024",
     location: "Lahore & Remote Villages, Pakistan",
     focus: "Community Outreach & Humanitarian Relief",
@@ -345,9 +346,9 @@ export const COMMUNITY_LEADERSHIP = [
       "Organized free rural medical camps offering checkups, medications, dental care, and diagnostic lab testing for Hepatitis B/C, TB, Syphilis, HIV, and Malaria.",
       "Led annual Ramadan ration drives for impoverished, remote families, personally managing logistics and self-distributing supplies in off-grid villages.",
       "Spearheaded flood relief missions during the devastating 2021 and 2022 floods in Pakistan—navigating flooded remote zones by boat and sleeping in local village mosques.",
-      "Volunteered regularly for orphan home visits, mentoring children and organizing educational activities."
+      "Volunteered for orphan home visits."
     ],
-    quote: "Reaching remote villages during floods showed me how fundamental healthcare access is to human dignity. Knowing a month's groceries can restore hope keeps me deeply humble."
+    quote: "Reaching remote villages during floods and drives showed me how much health depends on access."
   },
   {
     id: "synch-president",
@@ -357,10 +358,10 @@ export const COMMUNITY_LEADERSHIP = [
     location: "Lahore, Pakistan (National Scope)",
     focus: "Youth Leadership & UN SDG Alignment",
     highlights: [
-      "Led external relations for a major youth non-governmental organization encompassing 60+ medical college chapters across Pakistan.",
-      "Partnered with international health bodies including WHO Pakistan to adapt UN Sustainable Development Goals (SDGs) to local community healthcare needs.",
+      "Served as President External Affairs for a youth organization with 60+ medical college chapters across Pakistan.",
+      "Contributed to an organization that partners with WHO Pakistan to adapt UN Sustainable Development Goals (SDGs) to local contexts.",
       "Organized 2 major flood relief campaigns delivering critical medical supplies and food rations to impacted provinces.",
-      "Spearheaded a national campaign for smoke-free medical college campuses and led a nationwide COVID-19 mask & hand hygiene campaign endorsed by public figures.",
+      "Led a campaign for smoke-free medical colleges and coordinated a COVID-19 awareness campaign emphasizing mask-wearing and hand hygiene, featuring public figures.",
       "Organized a rural breast cancer awareness campaign under Shaukat Khanum Memorial Cancer Hospital (SKMCH)."
     ]
   },
@@ -375,36 +376,36 @@ export const COMMUNITY_LEADERSHIP = [
       "Represented SIMS within an organization representing over 1.5 million medical students across 120+ countries with official ties to WHO and the UN.",
       "Organized reproductive health education campaigns and national initiatives focusing on healthcare access for underprivileged populations.",
       "Hosted public health awareness webinars covering HIV/AIDS, Hepatitis B/C, and preventive medicine.",
-      "Facilitated research methodology workshops for medical students, training peers on systematic review topic selection, data extraction, and analysis."
+      "Participated in research webinars covering topic selection, data extraction, and analysis."
     ]
   },
   {
     id: "vfaht-volunteer",
     organization: "VFAHT (Volunteer Force Against Hepatitis Transmission)",
-    role: "Volunteer & Workshop Facilitator",
+    role: "Volunteer",
     dates: "07/2018 – 07/2023",
     location: "Lahore, Pakistan",
     focus: "Infection Control & Public Health",
     highlights: [
-      "Volunteered in community screening and vaccination drives for Hepatitis B/C, HIV, and bloodborne pathogens in rural villages surrounding Lahore.",
-      "Facilitated hospital safety workshops at Services Hospital Lahore on infection control, safe injection practices, and needle-stick injury prevention for healthcare workers.",
+      "Supported community screening for hepatitis B/C, HIV, and other bloodborne infections, alongside vaccination outreach in underserved communities near Lahore.",
+      "Volunteered in workshops at Services Hospital Lahore on infection control, safe injection practices, and needle-stick injury prevention.",
       "Designed educational posters and promotional booths for public health awareness campaigns."
     ]
   }
 ];
 
 export const SPORTS_LEADERSHIP = {
-  title: "Class Captain & Basketball Team Captain",
+  title: "Class Basketball Team Captain",
   organization: "Services Institute of Medical Sciences (SIMS)",
   dates: "02/2018 – 01/2023 (5 Consecutive Years)",
   highlights: [
-    "Elected Class Basketball Captain for 5 consecutive years during medical school.",
-    "Led a team of 6 players, managing weekly practice sessions, tactical strategies, and team selection.",
-    "Represented SIMS in inter-class and inter-college tournaments, securing championship titles in the finals twice.",
+    "Served as Class Basketball Captain for 5 consecutive years during medical school.",
+    "Led a team of 6 players, managing weekly practice sessions, game strategies, and team selection.",
+    "Represented his class in inter-class and inter-college tournaments, securing championship titles in the finals twice.",
     "Successfully balanced intensive clinical coursework and examinations with competitive athletic training.",
     "Built an inclusive, cohesive team environment where every player felt valued and empowered."
   ],
-  quote: "Leadership in sports means lifting others up and ensuring everyone feels part of every decision. I bring that same quiet effort and teamwork to caring for my patients."
+  quote: "Our wins came from quiet practice no one saw, I try to bring that same quiet effort to caring for my patients."
 };
 
 export const BEYOND_MEDICINE = [
@@ -440,7 +441,7 @@ export const CAREER_JOURNEY = [
     year: "Pre-Medical Roots",
     title: "Village Roots & Boarding School",
     subtitle: "Muzaffargarh, Pakistan",
-    description: "Raised in a 400-person village with limited healthcare access; selected for boarding school in Grade 6 through family sacrifice."
+    description: "Raised in a 400-person village with limited healthcare access; attended boarding school from Grade 6."
   },
   {
     year: "2017 – 2023",
@@ -464,7 +465,7 @@ export const CAREER_JOURNEY = [
     year: "2025 – 2026",
     title: "Meta-Analysis & Scholarly Research",
     subtitle: "Meta Analysis Academy",
-    description: "Authored & co-authored 18 multi-institutional meta-analyses and abstracts for AHA, ACG, ESMO, Frontiers & Circulation."
+    description: "Authored & co-authored scholarly outputs spanning systematic reviews, meta-analyses, clinical epidemiology, abstracts, and posters."
   },
   {
     year: "09/2026",
@@ -473,3 +474,6 @@ export const CAREER_JOURNEY = [
     description: "Gained U.S. inpatient hospitalist experience, Epic workflows, and interprofessional huddle participation in Level 1 & Level 2 Trauma Centers."
   }
 ];
+
+// Public professional contact address approved by the site owner.
+export const PUBLIC_CONTACT_EMAIL = 'ahmadaligill581@gmail.com';

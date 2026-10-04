@@ -14,28 +14,28 @@ export default function About() {
     {
       icon: <BookOpen size={20} />,
       title: 'Research Rigor',
-      description: '18 systematic reviews and meta-analyses across AHA, ACG, ESMO, Circulation, and Frontiers — from search string design to statistical analysis in R.',
+      description: 'Systematic reviews, meta-analyses, and clinical epidemiology — from search string design to statistical analysis in R.',
       bgColor: 'var(--accent-gold-light)',
       iconColor: 'var(--accent-gold)',
     },
     {
       icon: <Users size={20} />,
       title: 'Community Commitment',
-      description: '6+ years of rural medical camps, flood relief operations, free village clinics, and national student health advocacy across 60+ medical college chapters.',
+      description: '6+ years of rural medical camps, flood relief operations, free village clinics, and student health advocacy.',
       bgColor: '#ECFDF5',
       iconColor: '#047857',
     },
   ];
 
   return (
-    <section id="about" aria-label="About Ahmad Ali" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
+    <section id="about" tabIndex={-1} aria-label="About Ahmad Ali" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
       <div className="container">
         {/* Section Header */}
         <div style={{ maxWidth: '720px', marginBottom: 'var(--space-10)' }}>
           <p className="section-eyebrow">About</p>
           <h2 className="section-title">The Journey Behind the Medicine</h2>
           <p className="section-subtitle" style={{ marginBottom: 0 }}>
-            From a 400-person village in rural Pakistan to U.S. teaching hospitals — a path shaped by family sacrifice, clinical training, and a deep commitment to health equity.
+            From a 400-person village in rural Pakistan to U.S. teaching hospitals — a path shaped by education, clinical training, and a commitment to access to care.
           </p>
         </div>
 
@@ -91,7 +91,7 @@ export default function About() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
             gap: 'var(--space-6)',
           }}
         >
@@ -101,7 +101,7 @@ export default function About() {
               A Physician's Path
             </h3>
             <p style={{ marginBottom: 'var(--space-4)', lineHeight: 1.75 }}>
-              Growing up in a remote village with no nearby hospital or school, I saw firsthand how distance from healthcare shapes entire lives. My family's determination to secure my education — often at personal cost — instilled in me a deep sense of responsibility toward those who lack access to care.
+              I grew up in a village with no nearby hospital or school and attended boarding school from Grade 6. That experience shapes my interest in making healthcare accessible to underserved communities.
             </p>
             <p style={{ marginBottom: 'var(--space-4)', lineHeight: 1.75 }}>
               Medical training at Services Institute of Medical Sciences and my house officer year at Services Hospital Lahore immersed me in inpatient internal medicine, emergency care, and procedural training across 1,200 beds.
@@ -130,9 +130,9 @@ export default function About() {
                     {pillar.icon}
                   </div>
                   <div>
-                    <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.25rem', fontFamily: 'var(--font-sans)' }}>
+                    <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.25rem', fontFamily: 'var(--font-sans)' }}>
                       {pillar.title}
-                    </h4>
+                    </h3>
                     <p style={{ fontSize: '0.875rem', lineHeight: 1.65 }}>
                       {pillar.description}
                     </p>

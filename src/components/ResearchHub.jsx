@@ -1,220 +1,65 @@
-import React, { useState } from 'react';
-import { BookOpen, Search, ArrowRight, ChevronDown } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { Search, ArrowUpRight, ChevronDown, X } from 'lucide-react';
 import { RESEARCH_EXPERIENCE } from '../data/portfolioData';
+import { publicationLabel, publicationStatus, badgeClass, filterPublications } from '../utils/publications';
 import PublicationModal from './PublicationModal';
 
 export default function ResearchHub() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('all');
   const [selectedPub, setSelectedPub] = useState(null);
   const [showAll, setShowAll] = useState(false);
-
+  const triggerRef = useRef(null);
+  const resultsRef = useRef(null);
+  const searchRef = useRef(null);
+  const closeModal = useCallback(() => setSelectedPub(null), []);
   const { affiliation, categories, publications } = RESEARCH_EXPERIENCE;
-
-  const filteredPubs = publications.filter((pub) => {
-    const matchesCategory = selectedCategory === 'all' || pub.category === selectedCategory;
-    const q = searchQuery.toLowerCase();
-    const matchesSearch = !q ||
-      pub.title.toLowerCase().includes(q) ||
-      pub.journal.toLowerCase().includes(q) ||
-      pub.authors.toLowerCase().includes(q);
-    return matchesCategory && matchesSearch;
-  });
-
+  const query = searchQuery.trim().toLowerCase();
+  const filteredPubs = filterPublications(publications, { category: selectedCategory, status: selectedStatus, query });
   const visiblePubs = showAll ? filteredPubs : filteredPubs.slice(0, 6);
-
-  const getBadgeClass = (badge) => {
-    switch (badge) {
-      case 'published': return 'badge-published';
-      case 'featured': return 'badge-featured';
-      case 'poster': return 'badge-poster';
-      case 'success': return 'badge-accepted';
-      default: return 'badge-submitted';
-    }
-  };
+  const resetFilters = () => { setSearchQuery(''); setSelectedCategory('all'); setSelectedStatus('all'); setShowAll(false); searchRef.current?.focus(); };
 
   return (
-    <section id="research" aria-label="Research and Publications" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
+    <section id="research" tabIndex={-1} aria-labelledby="research-title" className="research-section">
       <div className="container">
-        <div style={{ maxWidth: '720px', marginBottom: 'var(--space-8)' }}>
-          <p className="section-eyebrow"><BookOpen size={14} /> Scholarly Work</p>
-          <h2 className="section-title">Research Driven by Questions That Matter</h2>
-          <p className="section-subtitle">
-            Systematic reviews, network meta-analyses, and clinical epidemiology across cardiology, oncology, hepatology, and nephrology.
-          </p>
-        </div>
-
-        {/* Research Affiliation Context */}
-        <div
-          className="card"
-          style={{
-            marginBottom: 'var(--space-8)',
-            borderLeft: '3px solid var(--accent-blue)',
-            padding: 'var(--space-5) var(--space-6)',
-          }}
-        >
-          <p style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.72rem',
-            fontWeight: 700,
-            color: 'var(--accent-gold)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            marginBottom: '0.3rem',
-          }}>
-            Research Affiliation
-          </p>
-          <h3 style={{ fontSize: '1.25rem', marginBottom: '0.4rem' }}>
-            {affiliation.role} — {affiliation.organization}
-          </h3>
-          <p style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
-            {affiliation.description}
-          </p>
-        </div>
-
-        {/* Filters */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', marginBottom: 'var(--space-6)' }}>
-          <div style={{ position: 'relative', maxWidth: '480px', width: '100%' }}>
-            <Search
-              size={16}
-              style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-light)' }}
-              aria-hidden="true"
-            />
-            <input
-              type="search"
-              placeholder="Search by topic, journal, or author..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Search publications"
-              style={{ paddingLeft: '2.5rem' }}
-            />
+        <div className="research-heading">
+          <div className="section-heading">
+            <p className="section-eyebrow">Research & Scholarship</p>
+            <h2 id="research-title" className="section-title">Questions that matter.<br /><span className="serif-accent">Evidence that informs.</span></h2>
+            <p className="section-subtitle">Systematic reviews, meta-analyses, and clinical epidemiology across cardiology, oncology, hepatology, and nephrology.</p>
           </div>
-
-          <div role="group" aria-label="Filter by publication type" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat.id;
-              const count = cat.id === 'all' ? publications.length
-                : publications.filter(p => p.category === cat.id).length;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => { setSelectedCategory(cat.id); setShowAll(false); }}
-                  aria-pressed={isActive}
-                  style={{
-                    padding: '0.4rem 0.9rem',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    borderRadius: 'var(--radius-full)',
-                    border: '1px solid',
-                    borderColor: isActive ? 'var(--accent-blue)' : 'var(--border-subtle)',
-                    backgroundColor: isActive ? 'var(--accent-blue)' : 'var(--bg-surface)',
-                    color: isActive ? '#FFFFFF' : 'var(--text-secondary)',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  {cat.label} ({count})
-                </button>
-              );
-            })}
+          <p className="research-count"><strong>{publications.length}</strong><span>listed scholarly outputs</span></p>
+        </div>
+        <details className="research-affiliation">
+          <summary><span>Research affiliation</span><strong>{affiliation.organization}</strong><ChevronDown size={18} aria-hidden="true" /></summary>
+          <div><p className="metadata">{affiliation.role} · {affiliation.dates}</p><p>{affiliation.description}</p></div>
+        </details>
+        <p className="research-note">Articles and manuscripts, conference abstracts, and posters are listed separately. Related outputs may describe the same study; submission and acceptance do not mean publication.</p>
+        <div className="research-tools">
+          <div className="research-search-row"><div className="research-search">
+            <Search size={18} aria-hidden="true" />
+            <input ref={searchRef} type="search" aria-label="Search scholarly outputs" aria-controls="research-results" placeholder="Search topic, journal, author…" value={searchQuery} onChange={e => { setSearchQuery(e.target.value); setShowAll(false); }} />
+            {searchQuery && <button className="icon-button" aria-label="Clear search" onClick={() => { setSearchQuery(''); setShowAll(false); searchRef.current?.focus(); }}><X size={16} /></button>}
+          </div><div className="research-status-filter"><label htmlFor="research-status">Status</label><select id="research-status" value={selectedStatus} aria-controls="research-results" onChange={e => { setSelectedStatus(e.target.value); setShowAll(false); }}><option value="all">All statuses</option><option value="published">Published</option><option value="accepted">Accepted / in press</option><option value="submitted">Submitted</option><option value="pending">Presentation pending</option></select></div></div>
+          <div className="research-filters" role="group" aria-label="Filter by output type">
+            {categories.map(cat => <button key={cat.id} className="filter-button" aria-pressed={selectedCategory === cat.id} onClick={() => { setSelectedCategory(cat.id); setShowAll(false); }}>{cat.id === 'all' ? 'All outputs' : cat.label} <span>{cat.id === 'all' ? publications.length : publications.filter(p => p.category === cat.id).length}</span></button>)}
           </div>
         </div>
-
-        {/* Publication Cards */}
-        {filteredPubs.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: 'var(--space-10) 0', color: 'var(--text-muted)' }}>
-            <p>No publications match your search criteria.</p>
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: 'var(--space-5)',
-              marginBottom: 'var(--space-8)',
-            }}
-          >
-            {visiblePubs.map((pub) => (
-              <article
-                key={pub.id}
-                className="card"
-                onClick={() => setSelectedPub(pub)}
-                onKeyDown={(e) => { if (e.key === 'Enter') setSelectedPub(pub); }}
-                tabIndex={0}
-                role="button"
-                aria-label={`View details: ${pub.title}`}
-                style={{
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem', gap: '0.5rem' }}>
-                    <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      {pub.type}
-                    </span>
-                    <span className={`badge ${getBadgeClass(pub.statusBadge)}`}>
-                      {pub.status}
-                    </span>
-                  </div>
-
-                  <h3 style={{ fontSize: '1.05rem', lineHeight: 1.45, marginBottom: '0.7rem', fontWeight: 600 }}>
-                    {pub.title}
-                  </h3>
-
-                  <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 600, color: 'var(--accent-blue)', marginBottom: '0.4rem' }}>
-                    {pub.journal}
-                  </div>
-
-                  <p style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.75rem',
-                    color: 'var(--text-muted)',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    marginBottom: '0.85rem',
-                    lineHeight: 1.5,
-                  }}>
-                    {pub.authors}
-                  </p>
-                </div>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingTop: '0.75rem',
-                  borderTop: '1px solid var(--border-subtle)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.75rem',
-                  color: 'var(--text-muted)',
-                }}>
-                  <span>{pub.date}</span>
-                  <span style={{ color: 'var(--accent-blue)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                    Details <ArrowRight size={12} />
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {filteredPubs.length > 6 && (
-          <div style={{ textAlign: 'center' }}>
-            <button onClick={() => setShowAll(!showAll)} className="btn btn-secondary">
-              {showAll ? 'Show Featured' : `View All ${filteredPubs.length} Works`}
-              <ChevronDown size={16} style={{ transform: showAll ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-            </button>
-          </div>
-        )}
+        <p className="results-status" role="status" aria-live="polite" aria-atomic="true">{filteredPubs.length === 0 ? 'No scholarly outputs match your search.' : `Showing ${visiblePubs.length} of ${filteredPubs.length} ${filteredPubs.length === 1 ? 'output' : 'outputs'}`}</p>
+        <div id="research-results" ref={resultsRef} tabIndex={-1} aria-label="Research results" className="research-results" key={`${selectedCategory}-${selectedStatus}-${query}`}>
+          {visiblePubs.map((pub, index) => (
+            <article key={pub.id} className="publication-row" style={{ '--entry-delay': `${Math.min(index, 4) * 35}ms` }}>
+              <div className="publication-meta"><span className="output-type">{publicationLabel(pub)}</span><span className={`badge ${badgeClass(pub)}`}>{publicationStatus(pub)}</span><span className="metadata">{pub.date}</span></div>
+              <div className="publication-main"><h3>{pub.title}</h3><p className="publication-journal">{pub.journal}</p></div>
+              <button className="publication-open" aria-label={`View details: ${pub.title}`} aria-haspopup="dialog" onClick={e => { triggerRef.current = e.currentTarget; setSelectedPub(pub); }}>Details <ArrowUpRight size={17} aria-hidden="true" /></button>
+            </article>
+          ))}
+        </div>
+        {!filteredPubs.length && <button className="btn btn-secondary" onClick={resetFilters}>Reset search & filters</button>}
+        {filteredPubs.length > 6 && <div className="research-more"><button className="btn btn-secondary" aria-controls="research-results" aria-expanded={showAll} onClick={() => { if (showAll) resultsRef.current?.focus(); setShowAll(!showAll); }}>{showAll ? 'Show fewer outputs' : `View all ${filteredPubs.length} outputs`} <ChevronDown size={16} className={showAll ? 'rotate-icon' : ''} aria-hidden="true" /></button></div>}
       </div>
-
-      <PublicationModal pub={selectedPub} onClose={() => setSelectedPub(null)} />
+      {selectedPub && <PublicationModal pub={selectedPub} onClose={closeModal} triggerRef={triggerRef} />}
     </section>
   );
 }

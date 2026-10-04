@@ -4,7 +4,7 @@ import { CAREER_JOURNEY } from '../data/portfolioData';
 
 export default function JourneyTimeline() {
   return (
-    <section id="journey" aria-label="Career Journey" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
+    <section id="journey" tabIndex={-1} aria-label="Career Journey" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
       <div className="container">
         <div style={{ maxWidth: '720px', marginBottom: 'var(--space-8)' }}>
           <p className="section-eyebrow"><Milestone size={14} /> Career Timeline</p>

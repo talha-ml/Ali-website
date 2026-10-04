@@ -1,13 +1,19 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useMotionPreference } from '../utils/motion';
+
+const currentYear = new Date().getFullYear();
 
 export default function Footer() {
+  const { reduced, systemReduced, manualReduced, setManualReduced } = useMotionPreference();
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
+    document.getElementById('hero')?.focus({ preventScroll: true });
   };
 
   return (
     <footer
+      className="site-footer"
       role="contentinfo"
       style={{
         backgroundColor: '#111827',
@@ -20,7 +26,7 @@ export default function Footer() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
             gap: 'var(--space-8)',
             paddingBottom: 'var(--space-8)',
             borderBottom: '1px solid #1F2937',
@@ -65,18 +71,21 @@ export default function Footer() {
             }}>
               Navigation
             </h3>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem' }}>
+            <ul className="footer-links">
               {[
                 { label: 'Home', href: '#hero' },
                 { label: 'About', href: '#about' },
                 { label: 'Clinical Experience', href: '#clinical' },
                 { label: 'Research', href: '#research' },
                 { label: 'Community', href: '#community' },
+                { label: 'Beyond Medicine', href: '#beyond' },
+                { label: 'Career timeline', href: '#journey' },
                 { label: 'Contact', href: '#contact' },
               ].map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={() => document.querySelector(link.href)?.focus({ preventScroll: true })}
                     style={{
                       color: '#D1D5DB',
                       textDecoration: 'none',
@@ -127,7 +136,10 @@ export default function Footer() {
             color: '#6B7280',
           }}
         >
-          <p>&copy; {new Date().getFullYear()} Ahmad Ali. All rights reserved.</p>
+          <p>&copy; {currentYear} Ahmad Ali. All rights reserved.</p>
+          <button className="motion-toggle" aria-pressed={reduced} disabled={systemReduced} onClick={() => setManualReduced(!manualReduced)}>
+            Reduce motion{systemReduced ? ' (system setting)' : ''}
+          </button>
 
           <button
             onClick={scrollToTop}

@@ -4,7 +4,7 @@ import { SPORTS_LEADERSHIP } from '../data/portfolioData';
 
 export default function LeadershipSports() {
   return (
-    <section id="leadership" aria-label="Athletic Leadership" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
+    <section id="leadership" tabIndex={-1} aria-label="Athletic Leadership" style={{ backgroundColor: 'var(--bg-surface-alt)' }}>
       <div className="container">
         <div
           className="card"
@@ -17,7 +17,7 @@ export default function LeadershipSports() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
               gap: 'var(--space-8)',
               alignItems: 'center',
             }}

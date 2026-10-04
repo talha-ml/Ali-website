@@ -6,20 +6,20 @@ const ICONS = [Activity, Utensils, Mountain, Wrench, Film];
 
 export default function BeyondMedicine() {
   return (
-    <section id="beyond" aria-label="Beyond Medicine">
+    <section id="beyond" tabIndex={-1} aria-label="Beyond Medicine">
       <div className="container">
         <div style={{ maxWidth: '720px', marginBottom: 'var(--space-8)' }}>
           <p className="section-eyebrow"><Smile size={14} /> Personal Interests</p>
           <h2 className="section-title">Beyond Medicine</h2>
           <p className="section-subtitle">
-            The passions, hobbies, and interests that foster balance and resilience outside of clinical work and research.
+            A little of life outside the clinic and the research desk.
           </p>
         </div>
 
-        <div
+        <div className="interests-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
             gap: 'var(--space-4)',
           }}
         >
